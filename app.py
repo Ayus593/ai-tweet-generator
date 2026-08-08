@@ -1,6 +1,21 @@
+import os
 import streamlit as st
+from dotenv import load_dotenv
+
+# Load local .env file
+load_dotenv()
+
+# Load Streamlit Cloud secret if available
+try:
+    if "GOOGLE_API_KEY" in st.secrets:
+        os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+except st.errors.StreamlitSecretNotFoundError:
+    pass
 
 from tweet_agent import run_tweet_agent
+
+
+
 
 
 
