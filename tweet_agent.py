@@ -1,5 +1,6 @@
 from typing import TypedDict, Literal, Annotated
 import operator
+import os
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
@@ -12,23 +13,26 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 load_dotenv()
 
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
+if not GOOGLE_API_KEY:
+    raise ValueError("GOOGLE_API_KEY is not configured.")
 
 
 evaluator = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash"
+    model="gemini-2.5-flash",
+    api_key=GOOGLE_API_KEY
 )
 
 generator = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash"
+    model="gemini-2.5-flash",
+    api_key=GOOGLE_API_KEY
 )
 
 optimizer = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash"
+    model="gemini-2.5-flash",
+    api_key=GOOGLE_API_KEY
 )
-
-
-
 class TweetEvaluation(BaseModel):
 
     evaluation: Literal[
